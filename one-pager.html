@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PulseGuard — one page</title>
+<style>
+  @page { size: letter; margin: 14mm 16mm; }
+  :root{
+    --ink:#16202b; --muted:#5a6b7a; --faint:#8a98a6;
+    --accent:#0b8f6a; --accentink:#066047; --warn:#b8770a;
+    --line:#dfe5ea; --bg:#fff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#eef1f4}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,system-ui,Helvetica,Arial,sans-serif;
+    color:var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    max-width:188mm; min-height:251mm; margin:18px auto; background:var(--bg);
+    padding:20mm 18mm; box-shadow:0 10px 40px -16px rgba(0,0,0,.3);
+  }
+  .head{display:flex;align-items:center;gap:13px;border-bottom:2px solid var(--accent);padding-bottom:13px;margin-bottom:6px}
+  .mark{width:34px;height:34px;border-radius:9px;flex:0 0 auto;position:relative;overflow:hidden;
+    background:radial-gradient(circle at 30% 25%,#19c98c,#0b8f6a 62%,#075a43)}
+  .mark::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,transparent 0 46%,#fff 46% 50%,transparent 50%),
+               linear-gradient(0deg,transparent 0 48%,rgba(255,255,255,.8) 48% 52%,transparent 52%)}
+  h1{font-size:20px;letter-spacing:1.5px;margin:0;font-weight:800}
+  h1 span{color:var(--accent)}
+  .sub{font-size:10.5px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-top:3px}
+  .by{margin:11px 0 16px;font-size:11.5px;color:var(--muted)}
+  .by b{color:var(--ink)}
+  p{margin:0 0 11px;font-size:12.5px}
+  .lead-label{color:var(--accentink);font-weight:700}
+  h2{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin:0 0 7px;font-weight:700}
+  table{width:100%;border-collapse:collapse;margin:4px 0 16px;font-size:12px}
+  td{padding:8px 6px;border-top:1px solid var(--line);vertical-align:top}
+  tr:first-child td{border-top:none}
+  td.what{color:var(--ink)}
+  td.res{text-align:right;font-weight:700;color:var(--accentink);white-space:nowrap;
+    font-variant-numeric:tabular-nums;font-family:"Cascadia Code",Consolas,ui-monospace,monospace;font-size:11.5px}
+  td.res.warn{color:var(--warn)}
+  .block{font-size:12.5px;margin:0 0 11px}
+  .block b{color:var(--ink)}
+  .hl{color:var(--accentink);font-weight:700}
+  .disc{margin-top:18px;padding-top:11px;border-top:1px solid var(--line);font-size:10px;color:var(--faint)}
+  .disc b{color:var(--muted)}
+  @media print{
+    body{background:#fff}
+    .sheet{box-shadow:none;margin:0;max-width:none;min-height:auto;padding:0}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="head">
+    <div class="mark"></div>
+    <div>
+      <h1>PULSE<span>GUARD</span></h1>
+      <div class="sub">Early warning for the operating room · research prototype</div>
+    </div>
+  </div>
+
+  <div class="by"><b>Aastik Rajan</b> · Johns Hopkins University · aastikc15@gmail.com · live demo + code: <b>aastikrajan.github.io/pulseguard</b></div>
+
+  <p><span class="lead-label">What it is.</span> Software that reads the live vital signs during surgery
+  and warns about <b>4 minutes before</b> the patient gets into trouble — and says <i>which</i> problem
+  (out of 9) and <i>why</i>. A research prototype, not a medical device.</p>
+
+  <p><span class="lead-label">Why it matters.</span> Today's monitors only alarm <i>after</i> a number
+  crosses a line, and they alarm so often that staff stop trusting them. The one product that predicts
+  ahead (Edwards HPI, in 10,000+ hospitals) predicts only <i>one</i> problem, needs an arterial line, and
+  after 8 years still has no trial proving it helps patients.</p>
+
+  <h2>What I built — alone, on public data (VitalDB, 5,151 surgeries)</h2>
+  <table>
+    <tr><td class="what">Warn before any deterioration</td><td class="res">AUPRC 0.454 · AUROC 0.849 · ~4.3 min early</td></tr>
+    <tr><td class="what">Get the alarms right</td><td class="res">62–71% real · vs ~12% in the field</td></tr>
+    <tr><td class="what">Say <i>which</i> of 9 events is coming</td><td class="res">AUROC 0.74–0.96</td></tr>
+    <tr><td class="what">Work at another hospital, no retraining</td><td class="res">AUROC 0.78–0.80 (Seoul→UC-Irvine)</td></tr>
+    <tr><td class="what">Does low blood pressure <i>cause</i> kidney injury?</td><td class="res warn">mostly no · RR 1.77 → 1.07</td></tr>
+  </table>
+
+  <p class="block"><span class="lead-label">What's different.</span> No existing system does all of this
+  together — many events, works across hospitals, honest cause analysis, and trustworthy alarms. And I
+  held it to a strict honesty bar: I locked the test set, threw out a model that was cheating, and reported
+  every failure — including that <span class="hl">hypotension is basically unpredictable</span> (shown 7
+  independent ways). The honesty is the point.</p>
+
+  <p class="block"><span class="lead-label">One practical upshot.</span> The two signals that matter most
+  are <b>heart rate and SpO₂ (pulse-ox)</b> — both cheap. So a low-cost version (ECG + pulse-ox only) could
+  work where arterial lines aren't available.</p>
+
+  <p class="block"><span class="lead-label">What I'm looking for.</span> Feedback, a research role, or a
+  collaborator to take the strongest result (works-across-hospitals + the honest benchmark) toward a paper
+  and outside validation.</p>
+
+  <div class="disc"><b>Retrospective research prototype</b> — not a medical device, diagnosis, or treatment
+  recommendation. Full reproducible benchmark and code at the link above.</div>
+
+</div>
+</body>
+</html>

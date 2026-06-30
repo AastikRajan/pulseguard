@@ -1,0 +1,104 @@
+{
+ "meta": {
+  "test_windows": 303909,
+  "test_cases": 1030,
+  "total_windows": 1574393,
+  "total_cases": 5151,
+  "split": "rng2026 20% by case"
+ },
+ "1_unified_ews": {
+  "base_rate": 0.1234,
+  "AUPRC_honest_heldout": 0.454,
+  "AUROC_honest": 0.8494,
+  "AUPRC_deployed_in_sample": 0.4796,
+  "note": "headline = clean dev-only train on locked test. Deployed model trained on all cases -> in-sample inflated. Validated clean stack 0.452 (multi) / 0.466 (SSL) / 0.455 (event-history).",
+  "@0.5FA/hr": {
+   "sens": 0.072,
+   "ppv": 0.709,
+   "alarm/hr": 1.51
+  },
+  "@1.0FA/hr": {
+   "sens": 0.12,
+   "ppv": 0.67,
+   "alarm/hr": 2.66
+  },
+  "@2.0FA/hr": {
+   "sens": 0.19,
+   "ppv": 0.616,
+   "alarm/hr": 4.56
+  }
+ },
+ "2_per_event_ews": {
+  "hypoxemia": {
+   "base": 0.0314,
+   "AUPRC": 0.4159,
+   "AUROC": 0.9573,
+   "lift": 13.3
+  },
+  "hypotension": {
+   "base": 0.0762,
+   "AUPRC": 0.2432,
+   "AUROC": 0.822,
+   "lift": 3.2
+  },
+  "bradycardia": {
+   "base": 0.006,
+   "AUPRC": 0.1838,
+   "AUROC": 0.9446,
+   "lift": 30.5
+  },
+  "tachycardia": {
+   "base": 0.0275,
+   "AUPRC": 0.2992,
+   "AUROC": 0.9499,
+   "lift": 10.9
+  },
+  "bronchospasm": {
+   "base": 0.0064,
+   "AUPRC": 0.119,
+   "AUROC": 0.9361,
+   "lift": 18.5
+  },
+  "hypercapnia": {
+   "base": 0.0017,
+   "AUPRC": 0.0306,
+   "AUROC": 0.9416,
+   "lift": 18.0
+  },
+  "ischemia": {
+   "base": 0.2489,
+   "AUPRC": 0.4359,
+   "AUROC": 0.7429,
+   "lift": 1.8
+  },
+  "light_anesth": {
+   "base": 0.0479,
+   "AUPRC": 0.4493,
+   "AUROC": 0.9319,
+   "lift": 9.4
+  },
+  "apnea": {
+   "base": 0.0288,
+   "AUPRC": 0.3418,
+   "AUROC": 0.9493,
+   "lift": 11.9
+  }
+ },
+ "3_differential_6way": {
+  "macro_recall": 0.61,
+  "n_test_single_event": 30827,
+  "note": "9-way degrades to 0.454 (events co-occur) -> independent detectors used instead"
+ },
+ "4_detectors": {
+  "light_anesth": {
+   "AUPRC": 0.4514,
+   "AUROC": 0.9322,
+   "base": 0.0479
+  },
+  "ischemia": {
+   "AUPRC": 0.4361,
+   "AUROC": 0.743,
+   "base": 0.2489
+  }
+ }
+}

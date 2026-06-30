@@ -1,0 +1,20 @@
+# never publish — data, models, credentials, logs
+*.npz
+*.pt
+*.pth
+*.pkl
+*.parquet
+*.csv
+*.netrc
+.mover_netrc
+*MOVER*
+*mover*
+raw/
+logs/
+*.log
+__pycache__/
+*.pyc
+.DS_Store
+.env
+*secret*
+*token*
