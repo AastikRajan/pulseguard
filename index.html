@@ -208,7 +208,7 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
 .gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 .gauge-center .rv{font-family:var(--mono);font-size:54px;font-weight:800;line-height:.9;font-variant-numeric:tabular-nums;letter-spacing:-2px;text-shadow:0 0 30px rgba(255,176,32,.4)}
 .gauge-center .rl{font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-top:8px;font-weight:800}
-.gauge-center .rk{font-size:8.5px;letter-spacing:2px;color:var(--faint);text-transform:uppercase;margin-top:4px}
+.gauge-center .rk{font-size:8.5px;letter-spacing:1.4px;color:var(--faint);text-transform:uppercase;margin-top:5px;max-width:150px;text-align:center}
 
 .callout{
   border-radius:13px;padding:12px 13px;border:1px solid rgba(255,176,32,.18);
@@ -281,11 +281,11 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
 }
 .intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .intro-card{
-  position:relative;width:min(760px,100%);max-height:92vh;overflow:auto;
+  position:relative;width:min(820px,100%);max-height:94vh;overflow:auto;
   border:1px solid var(--panel-edge);border-radius:20px;
   background:linear-gradient(180deg,rgba(16,23,36,.93),rgba(8,12,20,.95));
   box-shadow:0 40px 120px -40px rgba(0,0,0,.95), 0 1px 0 rgba(255,255,255,.05) inset;
-  padding:30px 32px 22px;
+  padding:38px 44px 30px;
   animation:introIn .6s cubic-bezier(.2,.7,.2,1) both;
 }
 @keyframes introIn{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
@@ -294,7 +294,7 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
   background:linear-gradient(90deg,transparent,var(--ecg),transparent);filter:blur(.5px);
   animation:scan 3.8s linear infinite;opacity:.85}
 @keyframes scan{to{left:130%}}
-.intro-top{display:flex;align-items:center;gap:15px;margin-bottom:14px}
+.intro-top{display:flex;align-items:center;gap:15px;margin-bottom:20px}
 .intro-top .mark{
   width:44px;height:44px;border-radius:13px;flex:0 0 auto;position:relative;overflow:hidden;
   background:radial-gradient(circle at 30% 25%, #1affa0, #0b8f6a 60%, #064c39);
@@ -307,29 +307,31 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
 .intro-top h1{font-size:21px;font-weight:800;letter-spacing:3px;line-height:1}
 .intro-top .accent{color:var(--ecg)}
 .intro-top .tag{font-size:10.5px;letter-spacing:1.7px;color:var(--muted);text-transform:uppercase;margin-top:5px}
-.intro .lede{font-size:13.5px;line-height:1.62;color:var(--ink);opacity:.93;margin:2px 0 16px;max-width:64ch}
+.intro .lede{font-size:13.5px;line-height:1.68;color:var(--ink);opacity:.93;margin:4px 0 24px;max-width:66ch}
 .intro .lede b{color:var(--ecg);font-weight:700}
 .introtable{display:flex;flex-direction:column;border:1px solid var(--panel-edge);border-radius:13px;overflow:hidden;background:rgba(120,170,225,.035)}
-.irow{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:10px 15px;border-top:1px solid rgba(120,170,225,.08)}
+.irow{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:13px 17px;border-top:1px solid rgba(120,170,225,.08)}
 .irow:first-child{border-top:none}
 .irow .k b{color:var(--ink);font-weight:700;font-size:12.5px;letter-spacing:.4px;display:block;margin-bottom:2px}
 .irow .k span{font-size:10.5px;color:var(--muted);letter-spacing:.3px}
 .irow .v{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ecg);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 .irow .v.warn{color:var(--risk)}
-.intro .boundary{margin-top:13px;padding:11px 15px;border-radius:11px;border:1px solid rgba(255,176,32,.28);
+.intro .boundary{margin-top:20px;padding:13px 17px;border-radius:11px;border:1px solid rgba(255,176,32,.28);
   background:rgba(255,176,32,.06);font-size:11.5px;line-height:1.56;color:#ffd79a}
 .intro .boundary b{color:var(--risk);font-weight:700}
-.intro .hint{margin-top:11px;font-size:10.5px;color:var(--faint);letter-spacing:.3px;text-align:center}
-.intro-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px}
+.intro .hint{margin-top:16px;font-size:10.5px;color:var(--faint);letter-spacing:.3px;text-align:center}
+.intro-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:26px}
 .intro-foot .by{font-size:11px;color:var(--faint);letter-spacing:.4px;line-height:1.55}
 .intro-foot .by b{color:var(--muted);font-weight:600}
 .enter{font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:.4px;cursor:pointer;color:#04130d;
   background:#1db884;border:none;border-radius:11px;padding:11px 22px;transition:.16s}
 .enter:hover{background:#28d094;transform:translateY(-1px)}
-.intro .discreet{margin-top:15px;font-size:9.5px;letter-spacing:.5px;color:var(--faint);display:flex;align-items:center;gap:7px}
+.intro .discreet{margin-top:18px;font-size:9.5px;letter-spacing:.5px;color:var(--faint);display:flex;align-items:center;gap:7px}
 .intro .discreet::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--risk-high);box-shadow:0 0 8px var(--risk-high);flex:0 0 auto}
 .btn.info{min-width:36px;font-size:14px;line-height:1;font-weight:700}
-@media (max-width:560px){.intro-card{padding:22px 18px 18px}.irow .v{font-size:12px}}
+@media (max-width:560px){.intro-card{padding:24px 20px 20px}.irow .v{font-size:12px}}
+/* channel not recorded for this case (honest missing-data indicator) */
+.na{opacity:.32 !important;font-size:.42em !important;letter-spacing:1.5px;font-weight:700 !important;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -463,7 +465,7 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
         <div class="gauge-center">
           <div class="rv" id="g-val">0.00</div>
           <div class="rl" id="g-tier">LOW</div>
-          <div class="rk">deterioration risk · next 5&nbsp;min</div>
+          <div class="rk">5-min&nbsp;horizon</div>
         </div>
       </div>
       <div class="callout idle" id="callout">
@@ -617,6 +619,9 @@ async function loadCase(id){
   }
   if(!d){ d=buildFallback(); toast('Offline mode — using embedded sample case'); }
   S.data=d; S.sparkHist=[];
+  // mark channels with NO finite data in this case -> shown as "n/r" (not recorded), not a glitch
+  S.absent={};
+  if(d.channels){ for(const k in d.channels){ const a=d.channels[k]; S.absent[k]=!(a&&a.some(v=>v!=null)); } }
   // start near the action: ~1 min before the alarm fires; for no-event (stable) cases,
   // at a representative low-risk window so the monitor shows its genuine nominal state.
   const _cue=(d.alarm&&d.alarm.fired_s!=null)?d.alarm.fired_s:((d.event&&d.event.onset_s!=null)?d.event.onset_s:null);
@@ -640,6 +645,8 @@ async function loadCase(id){
   $('#lg-vital').textContent=S.targetLabel;
   $('#foot-meta').textContent='Case '+(d.caseid_real??'—')+' · '+(d.duration_s/60|0)+' min · clean unified EWS (locked held-out split, seed 2026)';
   buildTimelineStatic();
+  // populate the panel immediately on load/switch (don't wait for the throttled numeric tick)
+  updateNumerics(); updateAI(riskAt(S.t)); drawGauge(riskAt(S.t));
 }
 
 function renderBench(){
@@ -686,8 +693,11 @@ function chAt(key,t){
   const arr=S.data&&S.data.channels&&S.data.channels[key];
   if(!arr||!arr.length) return null;
   const i=clamp(Math.floor(t),0,arr.length-1);
-  const v=arr[i];
-  return (v==null)?null:v;
+  if(arr[i]!=null) return arr[i];
+  // latch the last reading for slow/sparse channels (temp, etc.) like a real monitor,
+  // up to 30 min back; fully-absent channels stay null -> shown as "n/r".
+  for(let j=i-1;j>=0 && j>i-1800;j--){ if(arr[j]!=null) return arr[j]; }
+  return null;
 }
 function advanceWaves(dtPlayed){
   const hr=chAt('hr',S.t)||72;
@@ -777,22 +787,28 @@ function updateNumerics(){
   const hr=chAt('hr',t), spo2=chAt('spo2',t), sys=chAt('art_sbp',t), dia=chAt('art_dbp',t),
         map=chAt('map',t), etco2=chAt('etco2',t), rr=chAt('rr',t), bis=chAt('bis',t),
         temp=chAt('temp',t), pip=chAt('pip',t), peep=chAt('peep',t), tv=chAt('tv',t), mv=chAt('mv',t);
-  const f=(v,d=0)=>v==null?'--':v.toFixed(d);
-  $('#n-hr').textContent=f(hr,0);
-  $('#n-hr-rr').textContent= rr!=null? ('RR '+f(rr,0)):'';
-  $('#n-art').innerHTML= (sys!=null?f(sys,0):'--')+'<span style="font-size:.5em">/'+(dia!=null?f(dia,0):'--')+'</span>';
-  $('#n-map').textContent= map!=null?('('+f(map,0)+') MAP'):'';
-  const spEl=$('#n-spo2'); spEl.textContent=f(spo2,0);
-  spEl.style.color = (spo2!=null&&spo2<92)?C.high:C.pleth;
-  $('#n-perf').textContent= spo2!=null? (spo2>=96?'good perfusion':spo2>=92?'borderline':'DESAT'):'';
-  $('#n-etco2').textContent=f(etco2,0);
-  $('#n-rr').textContent=f(rr,0);
-  $('#n-bis').textContent=f(bis,0);
-  $('#n-temp').textContent=f(temp,1);
-  $('#n-pip').textContent=f(pip,0);
-  $('#n-peep').textContent=f(peep,0);
-  $('#n-tv').textContent=f(tv,0);
-  $('#n-mv').textContent=f(mv,1);
+  const ab=S.absent||{};
+  const set=(id,key,v,d=0)=>{ const el=$(id); if(!el) return;
+    if(ab[key]){ el.textContent='n/r'; el.classList.add('na'); el.title='not recorded in this case'; }
+    else { el.textContent=(v==null?'--':v.toFixed(d)); el.classList.remove('na'); el.title=''; } };
+  set('#n-hr','hr',hr,0);
+  $('#n-hr-rr').textContent= (!ab.rr&&rr!=null)? ('RR '+rr.toFixed(0)):'';
+  const artEl=$('#n-art');
+  if(ab.art_sbp&&ab.art_dbp){ artEl.textContent='n/r'; artEl.classList.add('na'); artEl.title='no arterial line in this case'; }
+  else { artEl.classList.remove('na'); artEl.title=''; artEl.innerHTML=(sys!=null?sys.toFixed(0):'--')+'<span style="font-size:.5em">/'+(dia!=null?dia.toFixed(0):'--')+'</span>'; }
+  $('#n-map').textContent= map!=null?('('+map.toFixed(0)+') MAP'):'';
+  const spEl=$('#n-spo2');
+  if(ab.spo2){ spEl.textContent='n/r'; spEl.classList.add('na'); spEl.style.color=C.pleth; }
+  else { spEl.classList.remove('na'); spEl.textContent=(spo2==null?'--':spo2.toFixed(0)); spEl.style.color=(spo2!=null&&spo2<92)?C.high:C.pleth; }
+  $('#n-perf').textContent= (!ab.spo2&&spo2!=null)? (spo2>=96?'good perfusion':spo2>=92?'borderline':'DESAT'):'';
+  set('#n-etco2','etco2',etco2,0);
+  set('#n-rr','rr',rr,0);
+  set('#n-bis','bis',bis,0);
+  set('#n-temp','temp',temp,1);
+  set('#n-pip','pip',pip,0);
+  set('#n-peep','peep',peep,0);
+  set('#n-tv','tv',tv,0);
+  set('#n-mv','mv',mv,1);
 }
 
 /* ============ RISK / AI HERO ============ */
