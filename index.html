@@ -103,6 +103,7 @@ select,.btn{
   transition:.18s;letter-spacing:.4px;
 }
 select{min-width:210px;font-weight:600}
+select option{background:#0e1420;color:#e8f1ff;font-weight:600}
 select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,170,225,.12)}
 .btn.play{min-width:46px;display:flex;align-items:center;justify-content:center;font-size:13px}
 .seg{display:flex;border:1px solid var(--panel-edge);border-radius:11px;overflow:hidden;background:rgba(120,170,225,.05)}
@@ -322,10 +323,9 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
 .intro-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px}
 .intro-foot .by{font-size:11px;color:var(--faint);letter-spacing:.4px;line-height:1.55}
 .intro-foot .by b{color:var(--muted);font-weight:600}
-.enter{font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:.6px;cursor:pointer;color:#04130d;
-  background:linear-gradient(90deg,#0d8f63,#1affa0);border:none;border-radius:12px;padding:11px 22px;
-  box-shadow:0 0 24px rgba(43,255,155,.32);transition:.18s}
-.enter:hover{transform:translateY(-1px);box-shadow:0 0 34px rgba(43,255,155,.5)}
+.enter{font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:.4px;cursor:pointer;color:#04130d;
+  background:#1db884;border:none;border-radius:11px;padding:11px 22px;transition:.16s}
+.enter:hover{background:#28d094;transform:translateY(-1px)}
 .intro .discreet{margin-top:15px;font-size:9.5px;letter-spacing:.5px;color:var(--faint);display:flex;align-items:center;gap:7px}
 .intro .discreet::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--risk-high);box-shadow:0 0 8px var(--risk-high);flex:0 0 auto}
 .btn.info{min-width:36px;font-size:14px;line-height:1;font-weight:700}
@@ -336,7 +336,6 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
 <!-- INTRO / EXPLAINER -->
 <div class="intro" id="intro">
   <div class="intro-card">
-    <div class="intro-scan"><i></i></div>
     <div class="intro-top">
       <div class="mark"></div>
       <div>
@@ -344,7 +343,7 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
         <div class="tag">Multi-event intraoperative early-warning · research prototype</div>
       </div>
     </div>
-    <p class="lede">One streaming model watches every vital sign together and flags <b>9 kinds of deterioration ~4 minutes before they happen</b> — telling you which one is coming, why, and how worried to be for this patient. Built solo on public data (VitalDB, 5,151 surgeries), held to a strict honesty bar: locked test split, leakage quarantined, every null reported.</p>
+    <p class="lede">A model that watches all vital signs together and flags 9 types of intraoperative deterioration before they occur, indicating which one and why. Built on public data (VitalDB, 5,151 surgeries) and evaluated on a locked, held-out test set — every figure below is out-of-sample, with limitations stated.</p>
 
     <div class="introtable">
       <div class="irow"><div class="k"><b>Unified early-warning</b><span>any deterioration, 5&nbsp;min ahead — locked held-out test</span></div><div class="v">0.454 AUPRC · 0.849 AUROC</div></div>
@@ -355,15 +354,15 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
       <div class="irow"><div class="k"><b>Causal: does low BP cause AKI?</b><span>mostly confounding — replicated, 2 hospitals</span></div><div class="v warn">RR 1.77 → 1.07</div></div>
     </div>
 
-    <div class="boundary"><b>What it can't do (mapped, not hidden):</b> intraoperative hypotension is near-unpredictable — system recall ~0.12, confirmed 7 independent ways. The honesty that refuted its own best-case numbers is the contribution, not a footnote.</div>
+    <div class="boundary"><b>Stated limitation:</b> intraoperative hypotension is near-unpredictable here — recall ~0.12, shown 7 independent ways. Reported, not omitted.</div>
 
-    <div class="hint">The live monitor replays <b>real held-out test cases</b>. Toggle <b>AI</b> to reveal the model's lead time over the bedside monitor.</div>
+    <div class="hint">The monitor below replays real held-out cases. Use the <b>AI</b> toggle to compare the model against the bedside monitor.</div>
 
     <div class="intro-foot">
-      <div class="by"><b>Aastik Rajan</b> · Johns Hopkins University<br>full reproducible benchmark + code: <b>github.com/AastikRajan/pulseguard</b></div>
-      <button class="enter" id="introEnter">Enter live monitor →</button>
+      <div class="by"><b>Aastik Rajan</b> · Johns Hopkins University<br>benchmark + code: <b>github.com/AastikRajan/pulseguard</b></div>
+      <button class="enter" id="introEnter">Enter monitor →</button>
     </div>
-    <div class="discreet">Retrospective research prototype — not a medical device, diagnosis, or treatment recommendation.</div>
+    <div class="discreet">Research prototype — not a medical device, diagnosis, or treatment recommendation.</div>
   </div>
 </div>
 
@@ -384,8 +383,8 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
       <select id="caseSel" title="Select replay case"></select>
       <button class="btn play" id="playBtn" title="Play / pause">❚❚</button>
       <div class="seg" id="speedSeg">
-        <button data-s="1">1×</button>
-        <button data-s="4" class="on">4×</button>
+        <button data-s="1" class="on">1×</button>
+        <button data-s="4">4×</button>
         <button data-s="16">16×</button>
       </div>
       <div class="ai-toggle">
@@ -464,7 +463,7 @@ select:hover,.btn:hover{border-color:rgba(120,170,225,.4);background:rgba(120,17
         <div class="gauge-center">
           <div class="rv" id="g-val">0.00</div>
           <div class="rl" id="g-tier">LOW</div>
-          <div class="rk">deterioration probability · 5&nbsp;min</div>
+          <div class="rk">deterioration risk · next 5&nbsp;min</div>
         </div>
       </div>
       <div class="callout idle" id="callout">
@@ -521,12 +520,11 @@ const C = {
   low:'#2bff9b', med:'#ffb020', high:'#ff3a57', muted:'#8ba0bd', faint:'#54657f',
   grid:'rgba(86,120,160,.10)', gridS:'rgba(86,120,160,.20)'
 };
-function riskColor(r){
-  if(r<0.30) return C.low;
-  if(r<0.55) return C.med;
-  return C.high;
-}
-function riskTier(r){ return r<0.30?'LOW':(r<0.55?'ELEVATED':'HIGH'); }
+// risk tiers are RELATIVE to the case's actual alarm threshold (so a below-threshold,
+// no-alarm state never paints red): LOW < 0.6*thr, ELEVATED < thr, ALARM >= thr.
+function alarmThr(){ const t=S.data&&S.data.alarm&&S.data.alarm.threshold; return (typeof t==='number'&&t>0)?t:0.92; }
+function riskColor(r){ const T=alarmThr(); if(r<0.6*T) return C.low; if(r<T) return C.med; return C.high; }
+function riskTier(r){ const T=alarmThr(); return r<0.6*T?'LOW':(r<T?'ELEVATED':'HIGH'); }
 const ROOT_META={
   'airway/breathing':{ic:'🫁',label:'AIRWAY / BREATHING'},
   'airway':{ic:'🫁',label:'AIRWAY / BREATHING'},
@@ -538,7 +536,7 @@ const ROOT_META={
 /* ============ STATE ============ */
 const S = {
   cases:[], data:null, bench:null,
-  t:0, playing:true, speed:4, ai:true,
+  t:0, playing:true, speed:1, ai:true,
   last:0, scrub:false,
   sparkHist:[],
 };
@@ -618,7 +616,15 @@ async function loadCase(id){
     catch(e){ d=null; }
   }
   if(!d){ d=buildFallback(); toast('Offline mode — using embedded sample case'); }
-  S.data=d; S.t=0; S.sparkHist=[];
+  S.data=d; S.sparkHist=[];
+  // start near the action: ~1 min before the alarm fires; for no-event (stable) cases,
+  // at a representative low-risk window so the monitor shows its genuine nominal state.
+  const _cue=(d.alarm&&d.alarm.fired_s!=null)?d.alarm.fired_s:((d.event&&d.event.onset_s!=null)?d.event.onset_s:null);
+  if(_cue!=null){ S.t=Math.max(0,_cue-60); }
+  else if(d.risk&&d.risk.score&&d.risk.score.length){
+    let mi=0; for(let i=1;i<d.risk.score.length;i++){ if(d.risk.score[i]<d.risk.score[mi]) mi=i; }
+    S.t=Math.max(0,(d.risk.t?d.risk.t[mi]:0)-30);
+  } else { S.t=0; }
   resetWaves();
   // source tags
   for(const k of ['ecg','art','pleth']){
@@ -877,13 +883,14 @@ function updateAI(r){
   // spark history (sample ~1/s of case time)
   drawSpark();
   const d=S.data, al=d.alarm||{}, ev=d.event||{};
+  const ELEV=0.6*((typeof al.threshold==='number'&&al.threshold>0)?al.threshold:0.92);
   const rail=$('#airail');
   const co=$('#callout'), coT=$('#co-ttl'), coM=$('#co-meta');
   const hasEvent = ev.onset_s!=null && al.fired_s!=null;
   const fired = hasEvent && S.t>=al.fired_s;
   const onset = ev.onset_s!=null && S.t>=ev.onset_s;
   // escalation styling
-  rail.classList.toggle('alert', fired && r>=0.30);
+  rail.classList.toggle('alert', fired && r>=ELEV);
   if(!hasEvent){
     co.className='callout idle'; coT.textContent='Monitoring — risk nominal'; coM.textContent='No critical deterioration in horizon';
   } else if(onset){
@@ -898,16 +905,16 @@ function updateAI(r){
     coM.innerHTML='<span>onset in <b>'+mmss(remain)+'</b></span><span>alarm lead <b class="lead">+'+mmss(al.lead_s)+'</b></span>';
   } else {
     const col=riskColor(r);
-    co.className= r>=0.30?'callout':'callout idle';
-    coT.innerHTML=(r>=0.30?'<span class="ic" style="color:'+C.med+'">▲</span> Risk rising — watching':'<span class="ic">✓</span> Monitoring — risk nominal');
-    coM.textContent= r>=0.30?'approaching alarm threshold':'No critical deterioration in horizon';
+    co.className= r>=ELEV?'callout':'callout idle';
+    coT.innerHTML=(r>=ELEV?'<span class="ic" style="color:'+C.med+'">▲</span> Risk rising — watching':'<span class="ic">✓</span> Monitoring — risk nominal');
+    coM.textContent= r>=ELEV?'approaching alarm threshold':'No critical deterioration in horizon';
   }
   // root cause
   let rc = al.root_cause;
-  if(hasEvent && S.t < al.fired_s) rc = (r>=0.30? al.root_cause : null);
+  if(hasEvent && S.t < al.fired_s) rc = (r>=ELEV? al.root_cause : null);
   const meta=ROOT_META[rc]||ROOT_META[null];
   $('#rc-ic').textContent=meta.ic;
-  $('#rc-v').textContent= (hasEvent && S.t>=al.fired_s)||(hasEvent&&r>=0.30)? meta.label : '—';
+  $('#rc-v').textContent= (hasEvent && S.t>=al.fired_s)||(hasEvent&&r>=ELEV)? meta.label : '—';
 }
 
 /* ============ TIMELINE ============ */
