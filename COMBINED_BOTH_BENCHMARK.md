@@ -33,6 +33,23 @@ co-trained because MOVER doesn't have the data. Different tasks; do not compare 
 3. **Co-training trades a little for balance:** it costs ~0.014 AUROC on VitalDB's home turf (0.864→0.850) in exchange for +0.056 on UC-Irvine (0.834→0.890). Net: one model that holds up on both sites.
 4. **Consistency check:** VitalDB-only zero-shot on UC-Irvine = 0.834 AUROC (more source data than the earlier 3k-case run lifted transfer from 0.79 to 0.83), consistent with the reported 0.78–0.83 cross-hospital range.
 
+## Improvement — adding the other shared channels (co-trained only)
+
+HR+SpO₂ is the safe *zero-shot* transfer set; richer channels (BP, ETCO₂, TV, RR) hurt zero-shot
+(distribution shift). But **co-training removes that penalty** — the model learns each hospital's own
+channel statistics — so the richer set now helps. `scripts/mover/train_combined_rich.py` (full data):
+
+| Co-trained feature set | VitalDB | UC-Irvine | Pooled |
+|---|---|---|---|
+| HR+SpO₂ (12 feat) | 0.850 / 0.236 | 0.890 / 0.116 | 0.900 / 0.176 |
+| **+ BP + ETCO₂ + TV + RR (36 feat)** | **0.938 / 0.413** | **0.905 / 0.132** | **0.935 / 0.314** |
+
+(AUROC / AUPRC.) Adding the shared channels lifts the co-trained model **+0.088 AUROC on VitalDB, +0.015 on
+UC-Irvine, +0.035 pooled**, and nearly doubles pooled AUPRC (0.176→0.314). All features are trailing-window
+statistics (no leakage); the gain is real physiology (ETCO₂/TV falling precede desaturation). **Scientific
+point:** the channels that *hurt* zero-shot transfer *help* once you co-train — a concrete argument for
+multi-site training over train-here-deploy-there.
+
 ## Relationship to the headline benchmark
 - **Full unified EWS (AUPRC 0.454 / AUROC 0.849):** VitalDB only, 35 channels @1Hz — stays VitalDB-trained + zero-shot external validation (MOVER can't co-train it).
 - **Shared hypoxemia task (this doc):** a genuine both-hospital model that holds up on both sites — the answer to "train it on both."
