@@ -50,6 +50,17 @@ statistics (no leakage); the gain is real physiology (ETCO₂/TV falling precede
 point:** the channels that *hurt* zero-shot transfer *help* once you co-train — a concrete argument for
 multi-site training over train-here-deploy-there.
 
+## Leakage / sanity verification (`scripts/mover/verify_rich_leakage.py`)
+- **Permutation test:** shuffling the training labels collapses the FULL model to AUROC 0.305 / AUPRC 0.014 (= base rate) on the real held-out set → the features do **not** encode the label; **no leakage**.
+- **Ceiling check:** the 1-min FULL model (0.939) sits **below** the full 1-Hz VitalDB hypoxemia per-event model (0.957) — a bug/leak would push it *above* the known ceiling; it doesn't.
+- Features are trailing-window only (t−9…t); labels are future (t+1…t+5); split is strictly by patient. Verdict: **CLEAN**.
+
+## Honest scope caveats (do not overclaim)
+- This is **hypoxemia only**, an *easy* event with clear precursors — not representative of hard events (hypotension recall ~0.12). Not the unified EWS.
+- 0.939 is **below** our own full-resolution hypoxemia model (0.957); it is **not** a record, and **not** comparable to the "industry ~0.89" figure (which is *hypotension*/HPI).
+- The large VitalDB gain is partly VitalDB's high-quality continuous ventilator data; UC-Irvine (sparse vent) gained only +0.015. Possible ventilation-mode confound. UC-Irvine AUPRC stays modest (0.13).
+- **Headline of the project remains the unified EWS (AUPRC 0.454 / AUROC 0.849).** This co-trained result is a supporting cross-hospital demonstration, correctly scoped.
+
 ## Relationship to the headline benchmark
 - **Full unified EWS (AUPRC 0.454 / AUROC 0.849):** VitalDB only, 35 channels @1Hz — stays VitalDB-trained + zero-shot external validation (MOVER can't co-train it).
 - **Shared hypoxemia task (this doc):** a genuine both-hospital model that holds up on both sites — the answer to "train it on both."
